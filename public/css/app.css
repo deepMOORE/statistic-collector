@@ -1,0 +1,126 @@
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.navbar {
+    width: 100%;
+    height: 70px;
+    background-color: #f7fafc;
+    box-shadow: 0 0 10px 0 #b2b0b0;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.create-article-component {
+    text-decoration: none;
+    padding: 10px 10px 10px 10px;
+}
+
+.create-article-component-link {
+    padding-top: 13px;
+    width: 100px;
+}
+
+.common {
+    background-color: #e4e5ef;
+    width: 100%;
+    font-family: "Segoe UI", serif;
+}
+
+.logo-component {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    padding: 10px 10px 10px 10px;
+}
+
+.app-name {
+    margin-left: 20px;
+    padding-top: 13px;
+}
+
+.article-card {
+    padding: 3px 10px 10px 10px;
+    width: 650px;
+    margin-left: 150px;
+    margin-bottom: 30px;
+    background-color: #f7fafc;
+    box-shadow: 0 0 10px 0 #b2b0b0;
+    border-radius: 2px;
+}
+
+.article-title {
+    font-size: 16px;
+}
+
+.article-content {
+    font-size: 14px;
+}
+
+.article-head {
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+.article-publishing-date {
+    margin-top: 14px;
+    margin-left: 15px;
+    color: #637896;
+    font-size: 13px;
+}
+
+.create-articles-form {
+    padding: 3px 10px 10px 10px;
+    width: 650px;
+    margin-left: 150px;
+    margin-bottom: 30px;
+}
+
+.create-article-content-textarea {
+    width: 473px;
+    height: 250px;
+}
+
+.create-article-field {
+    margin-bottom: 10px;
+}
+
+.common-button {
+    border: 0;
+    width: 100px;
+    height: 30px;
+    background-color: #2d3748;
+    color: #f7fafc;
+    border-radius: 4px;
+    transition: 0.25s;
+}
+
+.common-button:hover {
+    background-color: #4c6383;
+    color: #f7fafc;
+}
+
+.edit-button {
+    width: 50px;
+    height: 40px;
+}
