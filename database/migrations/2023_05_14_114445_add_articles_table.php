@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->dateTime('published_at');
+            $table->bigInteger('views_count');
             $table->string('content');
             $table->nullableTimestamps();
         });

@@ -52,6 +52,7 @@ class ArticleRepository extends BaseRepository
                 'id',
                 'title',
                 'published_at',
+                'views_count',
                 'content',
             ])
             ->orderByDesc('published_at')
@@ -65,7 +66,8 @@ class ArticleRepository extends BaseRepository
             $rawArticle->id,
             $rawArticle->title,
             Carbon::make($rawArticle->published_at),
-            $rawArticle->content
+            $rawArticle->content,
+            $rawArticle->views_count,
         );
     }
 

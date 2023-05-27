@@ -6,6 +6,12 @@
             <div class="article-head">
                 <h2 class="article-title">{{$article->title}}</h2>
                 <span class="article-publishing-date">{{$article->publishedAt}}</span>
+                <div class="logo-component">
+                    <img class="eye" src="{{asset('icons/eye.svg')}}" alt="eye">
+                    <div class="views-count">
+                        <span>{{$article->viewCount}}</span>
+                    </div>
+                </div>
             </div>
             <p class="article-content">{{$article->content}}</p>
             <form method="POST" action="/api/articles">
@@ -29,7 +35,3 @@
         </div>
     </div>
 @endsection
-
-<script>
-    document.querySelector('')
-</script>

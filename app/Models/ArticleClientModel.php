@@ -9,6 +9,7 @@ class ArticleClientModel
         public string $title,
         public string $publishedAt,
         public string $content,
+        public int $viewCount,
     ) {
     }
 }

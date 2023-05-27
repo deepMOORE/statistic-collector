@@ -39,6 +39,7 @@ class ArticleService
                 $x->title,
                 $this->parsePublishingDate($x->publishedAt),
                 $x->content,
+                $x->viewCount,
             ));
     }
 

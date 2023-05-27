@@ -15,6 +15,7 @@ class ArticleFactory extends Factory
             'title' => fake()->realText(10),
             'content' => fake()->realTextBetween(200, 600),
             'published_at' => fake()->dateTimeBetween('-4 months'),
+            'views_count' => fake()->randomNumber()
         ];
     }
 }

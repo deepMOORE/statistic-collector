@@ -124,3 +124,13 @@ a:active {
     width: 50px;
     height: 40px;
 }
+
+.eye {
+    width: 21px;
+    height: 21px;
+    color: #637896;
+}
+
+.views-count {
+    padding-left: 5px;
+}
