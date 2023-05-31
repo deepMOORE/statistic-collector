@@ -20,14 +20,27 @@ a:active {
 }
 
 .navbar {
+    position: fixed;
     width: 100%;
     height: 70px;
+    top: 0;
     background-color: #f7fafc;
     box-shadow: 0 0 10px 0 #b2b0b0;
-    margin-bottom: 50px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.content {
+    margin-top: 100px;
+}
+
+.tag {
+    color: #6767ea;
+}
+
+.tags {
+    margin-bottom: 7px;
 }
 
 .create-article-component {
@@ -87,6 +100,24 @@ a:active {
     margin-left: 15px;
     color: #637896;
     font-size: 13px;
+}
+
+.article-rating {
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 18px;
+}
+
+.article-rating-red {
+    color: #a10000;
+}
+
+.article-rating-green {
+    color: #087508;
+}
+
+.article-rating-grey {
+    color: #495749;
 }
 
 .create-articles-form {

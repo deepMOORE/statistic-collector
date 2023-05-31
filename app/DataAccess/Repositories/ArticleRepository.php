@@ -2,6 +2,7 @@
 
 namespace App\DataAccess\Repositories;
 
+use App\DbModels\Article;
 use App\Models\ArticleModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -47,12 +48,14 @@ class ArticleRepository extends BaseRepository
 
     public function getAll(): Collection
     {
-        return $this->query()
+        return Article::query()
+            ->with('tags')
             ->select([
                 'id',
                 'title',
                 'published_at',
                 'content',
+                'rating',
             ])
             ->orderByDesc('published_at')
             ->get()
@@ -65,7 +68,9 @@ class ArticleRepository extends BaseRepository
             $rawArticle->id,
             $rawArticle->title,
             Carbon::make($rawArticle->published_at),
-            $rawArticle->content
+            $rawArticle->content,
+            $rawArticle->tags,
+            $rawArticle->rating === null ? null : (float)$rawArticle->rating,
         );
     }
 

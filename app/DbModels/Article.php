@@ -10,4 +10,9 @@ class Article extends BaseModel
     {
         return ArticleFactory::new();
     }
+
+    public function tags()
+    {
+        return $this->hasMany(Tag::class);
+    }
 }

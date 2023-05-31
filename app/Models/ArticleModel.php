@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class ArticleModel
 {
@@ -11,6 +12,8 @@ class ArticleModel
         public string $title,
         public Carbon $publishedAt,
         public string $content,
+        public Collection $tags,
+        public ?float $rating,
     ) {
     }
 }

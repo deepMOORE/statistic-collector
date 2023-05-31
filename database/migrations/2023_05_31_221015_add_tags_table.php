@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('article_id');
             $table->string('title');
-            $table->decimal('rating')->nullable()->default(null);
-            $table->dateTime('published_at');
-            $table->string('content');
             $table->nullableTimestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('tags');
     }
 };

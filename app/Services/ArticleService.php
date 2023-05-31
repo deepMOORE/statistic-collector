@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DataAccess\Repositories\ArticleRepository;
+use App\DataAccess\Repositories\TagRepository;
 use App\Models\ArticleClientModel;
 use App\Models\ArticleModel;
 use Carbon\Carbon;
@@ -12,6 +13,7 @@ class ArticleService
 {
     public function __construct(
         private readonly ArticleRepository $articleRepository,
+        private readonly TagRepository $tagRepository,
     ) {
     }
 
@@ -39,7 +41,29 @@ class ArticleService
                 $x->title,
                 $this->parsePublishingDate($x->publishedAt),
                 $x->content,
+                $x->tags,
+                $x->rating,
+                $this->getRatingColor($x->rating),
             ));
+    }
+
+    private function getRatingColor(?float $rating): string
+    {
+        $color = 'grey';
+
+        if ($rating === null) {
+            return $color;
+        }
+
+        if ($rating <= 4.0) {
+            return 'red';
+        }
+
+        if ($rating <= 7.0) {
+            return 'grey';
+        }
+
+        return 'green';
     }
 
     public function create(string $title, string $content): int
@@ -50,6 +74,7 @@ class ArticleService
     public function delete(int $id): void
     {
         $this->articleRepository->delete($id);
+        $this->tagRepository->deleteByArticle($id);
     }
 
     public function edit(int $id, string $title, string $content): void
