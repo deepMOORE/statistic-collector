@@ -12,8 +12,14 @@
                         <span>{{$article->viewCount}}</span>
                     </div>
                 </div>
+                <span class="article-rating article-rating-{{$article->ratingColor}}">{{$article->rating === null ? '-/-' : round($article->rating, 1)}}</span>
             </div>
             <p class="article-content">{{$article->content}}</p>
+            <div class="tags">
+                @foreach($article->tags as $tag)
+                    <span class="tag">#{{$tag->title}}</span>
+                @endforeach
+            </div>
             <form method="POST" action="/api/articles">
                 @method('DELETE')
                 @csrf

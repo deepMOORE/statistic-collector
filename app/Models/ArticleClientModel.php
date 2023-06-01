@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
+
 class ArticleClientModel
 {
     public function __construct(
@@ -10,6 +12,9 @@ class ArticleClientModel
         public string $publishedAt,
         public string $content,
         public int $viewCount,
+        public Collection $tags,
+        public ?float $rating,
+        public string $ratingColor,
     ) {
     }
 }
