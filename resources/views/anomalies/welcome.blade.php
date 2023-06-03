@@ -3,7 +3,7 @@
 @section('content')
     <h1>Article #{{$model->articleId}}: {{$model->title}}</h1>
     <h2>Views statistics for one year</h2>
-    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    <canvas id="myChart" style="width:100%;max-width:900px"></canvas>
     <script>
         const xValues = atob('{{$model->datesStr}}').split(', ');
         const yValues = atob('{{$model->valuesStr}}').split(', ').map((x) => parseInt(x));
