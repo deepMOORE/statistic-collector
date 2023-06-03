@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnomaliesController;
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ArticleController::class, 'viewWelcome']);
 Route::get('articles/create', [ArticleController::class, 'viewCreate']);
 Route::get('articles/edit/{id}', [ArticleController::class, 'viewEdit']);
+
+Route::get('anomalies/{id}', [AnomaliesController::class, 'index']);

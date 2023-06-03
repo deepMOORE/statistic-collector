@@ -57,6 +57,7 @@ class ArticleRepository extends BaseRepository
                 'content',
                 'rating',
             ])
+            ->limit(100)
             ->orderByDesc('published_at')
             ->get()
             ->map(fn(object $x) => $this->map($x));

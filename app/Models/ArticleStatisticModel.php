@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Collection;
-
 class ArticleStatisticModel
 {
     public int $articleId;
 
     public string $title;
 
-    public float $periodValue;
+    public float $maxValue;
 
-    public Collection $stats;
+    public float $minValue;
+
+    public string $datesStr;
+
+    public string $valuesStr;
 }
