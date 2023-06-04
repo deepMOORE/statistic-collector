@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         Tag::query()->forceDelete();
         StatisticViews::query()->forceDelete();
 
-        Article::factory(1000)->create();
+        Article::factory(50)->create();
 
         $tags = [];
         Article::query()->get()->each(function (Article $x) use (&$tags) {
