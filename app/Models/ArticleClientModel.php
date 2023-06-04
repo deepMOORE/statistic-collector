@@ -11,6 +11,7 @@ class ArticleClientModel
         public string $title,
         public string $publishedAt,
         public string $content,
+        public int $viewCount,
         public Collection $tags,
         public ?float $rating,
         public string $ratingColor,

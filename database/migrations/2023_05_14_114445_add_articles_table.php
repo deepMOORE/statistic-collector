@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->decimal('rating')->nullable()->default(null);
             $table->dateTime('published_at');
+            $table->bigInteger('views_count');
             $table->string('content');
             $table->nullableTimestamps();
         });

@@ -41,6 +41,7 @@ class ArticleService
                 $x->title,
                 $this->parsePublishingDate($x->publishedAt),
                 $x->content,
+                $x->viewCount,
                 $x->tags,
                 $x->rating,
                 $this->getRatingColor($x->rating),

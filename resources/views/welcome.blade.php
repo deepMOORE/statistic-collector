@@ -6,6 +6,12 @@
             <div class="article-head">
                 <h2 class="article-title"><a href="anomalies/{{$article->id}}">{{$article->title}}</a></h2>
                 <span class="article-publishing-date">{{$article->publishedAt}}</span>
+                <div class="logo-component">
+                    <img class="eye" src="{{asset('icons/eye.svg')}}" alt="eye">
+                    <div class="views-count">
+                        <span>{{$article->viewCount}}</span>
+                    </div>
+                </div>
                 <span class="article-rating article-rating-{{$article->ratingColor}}">{{$article->rating === null ? '-/-' : round($article->rating, 1)}}</span>
             </div>
             <p class="article-content">{{$article->content}}</p>
@@ -35,7 +41,3 @@
         </div>
     </div>
 @endsection
-
-<script>
-    document.querySelector('')
-</script>

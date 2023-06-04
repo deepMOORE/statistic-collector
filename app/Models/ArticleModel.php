@@ -12,6 +12,7 @@ class ArticleModel
         public string $title,
         public Carbon $publishedAt,
         public string $content,
+        public int $viewCount,
         public Collection $tags,
         public ?float $rating,
     ) {

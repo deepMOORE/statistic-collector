@@ -54,6 +54,7 @@ class ArticleRepository extends BaseRepository
                 'id',
                 'title',
                 'published_at',
+                'views_count',
                 'content',
                 'rating',
             ])
@@ -70,6 +71,7 @@ class ArticleRepository extends BaseRepository
             $rawArticle->title,
             Carbon::make($rawArticle->published_at),
             $rawArticle->content,
+            $rawArticle->views_count,
             $rawArticle->tags,
             $rawArticle->rating === null ? null : (float)$rawArticle->rating,
         );
