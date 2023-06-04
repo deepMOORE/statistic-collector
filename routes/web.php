@@ -20,3 +20,4 @@ Route::get('articles/create', [ArticleController::class, 'viewCreate']);
 Route::get('articles/edit/{id}', [ArticleController::class, 'viewEdit']);
 
 Route::get('anomalies/{id}', [AnomaliesController::class, 'index']);
+Route::get('anomalies/download/{id}', [AnomaliesController::class, 'download']);

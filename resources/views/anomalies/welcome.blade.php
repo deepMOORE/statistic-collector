@@ -1,7 +1,7 @@
 @extends('common')
 
 @section('content')
-    <h1>Article #{{$model->articleId}}: {{$model->title}}</h1>
+    <h1>Article #{{$model->articleId}}: {{$model->title}} <a href="download/{{$model->articleId}}">Download</a></h1>
     <h2>Views statistics for one year</h2>
     <canvas id="myChart" style="width:100%;max-width:900px"></canvas>
     <script>
