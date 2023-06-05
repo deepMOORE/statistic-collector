@@ -37,7 +37,7 @@ class GenerateAnomalies extends Command
 
             $randomValue = $stats->random(1)->first();
 
-            $valueToUpdate = $randomValue->value + random_int(200, 300);
+            $valueToUpdate = $randomValue->value + random_int(400, 500);
 
             $sum = $stats->sum(fn ($x) => $x->value) + $valueToUpdate;
 

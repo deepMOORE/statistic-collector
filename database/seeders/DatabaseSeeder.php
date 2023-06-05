@@ -18,19 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Article::query()->forceDelete();
-        Tag::query()->forceDelete();
         StatisticViews::query()->forceDelete();
 
-        Article::factory(50)->create();
-
-        $tags = [];
-        Article::query()->get()->each(function (Article $x) use (&$tags) {
-            $tags[] = Tag::factory(random_int(2, 10))->make([
-                'article_id' => $x->id,
-            ])->toArray();
-        });
-
-        Tag::query()->insert(Arr::flatten($tags, 1));
+        Article::factory(10)->create();
 
         $this->generateViews(Article::query()->pluck('id'));
     }
@@ -40,22 +30,19 @@ class DatabaseSeeder extends Seeder
         $dateNow = Carbon::now();
         $start = Carbon::createFromTimestamp(0);
         $statToInsert = [];
-
         foreach ($articleIds as $articleId) {
             $totalViews = 0;
             $viewsInMonth = 0;
-            foreach (range(11, 0) as $monthNumber) {
-                $viewsInMonth = random_int($viewsInMonth, $viewsInMonth + 200);
+            foreach (range(23, 0) as $monthNumber) {
+                $viewsInMonth = random_int($viewsInMonth, $viewsInMonth + 100);
                 $statToInsert[] = StatisticViews::factory()->make([
                     'value' => $viewsInMonth,
                     'period_date' => $dateNow->clone()->subMonthsNoOverflow($monthNumber)->startOfMonth(),
                     'period' => 'month',
                     'entity_id' => $articleId,
                 ])->toArray();
-
                 $totalViews += $viewsInMonth;
             }
-
             $statToInsert[] = StatisticViews::factory()->make([
                 'value' => $totalViews,
                 'period_date' => $start,
@@ -63,9 +50,7 @@ class DatabaseSeeder extends Seeder
                 'entity_id' => $articleId,
             ])->toArray();
         }
-
         $chunkSize = 100;
-
         $chunks = array_chunk($statToInsert, $chunkSize);
 
         foreach ($chunks as $chunk) {
