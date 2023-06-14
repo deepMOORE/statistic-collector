@@ -32,9 +32,8 @@ class DatabaseSeeder extends Seeder
         $statToInsert = [];
         foreach ($articleIds as $articleId) {
             $totalViews = 0;
-            $viewsInMonth = 0;
             foreach (range(23, 0) as $monthNumber) {
-                $viewsInMonth = random_int($viewsInMonth, $viewsInMonth + 100);
+                $viewsInMonth = random_int(150, 250);
                 $statToInsert[] = StatisticViews::factory()->make([
                     'value' => $viewsInMonth,
                     'period_date' => $dateNow->clone()->subMonthsNoOverflow($monthNumber)->startOfMonth(),

@@ -8,11 +8,9 @@ class ArticleStatisticModel
 
     public string $title;
 
-    public float $maxValue;
-
-    public float $minValue;
-
     public string $datesStr;
 
     public string $valuesStr;
+
+    public string $anomalyIndexes;
 }

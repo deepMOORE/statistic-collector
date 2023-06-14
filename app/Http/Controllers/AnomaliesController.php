@@ -5,22 +5,28 @@ namespace App\Http\Controllers;
 use App\DbModels\Article;
 use App\DbModels\StatisticViews;
 use App\Models\ArticleStatisticModel;
+use App\Services\AnomalyDetector;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class AnomaliesController
 {
+    public function __construct(
+        private readonly AnomalyDetector $anomalyDetector,
+    ) {
+    }
+
     public function index(int $articleId)
     {
         $stats = $this->getStats($articleId);
+
+        $anomalies = $this->anomalyDetector->detect($stats);
 
         $article = Article::query()->firstWhere('id', $articleId);
 
         $model = new ArticleStatisticModel();
         $model->articleId = $article->id;
         $model->title = $article->title;
-        $model->maxValue = $stats->max(fn ($x) => $x->value);
-        $model->minValue = $stats->max(fn ($x) => $x->value);
         $model->datesStr = base64_encode(implode(', ', $stats
             ->pluck('period_date')
             ->map(fn (Carbon $period) => $period->format('Y-m-d'))
@@ -30,6 +36,7 @@ class AnomaliesController
             ->pluck('value')
             ->all()
         ));
+        $model->anomalyIndexes = base64_encode(implode(', ', $anomalies));
 
         return view('anomalies.welcome', ['model' => $model]);
     }

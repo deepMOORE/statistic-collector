@@ -5,16 +5,47 @@
     <h2>Views statistics for one year</h2>
     <canvas id="myChart" style="width:100%;max-width:900px"></canvas>
     <script>
-        const xValues = atob('{{$model->datesStr}}').split(', ');
+        const xDates = atob('{{$model->datesStr}}').split(', ');
         const yValues = atob('{{$model->valuesStr}}').split(', ').map((x) => parseInt(x));
-        console.log(xValues);
-        console.log(yValues);
 
+        const anomalyIndexes = atob('{{$model->anomalyIndexes}}').split(', ').map((x) => parseInt(x));
 
-        new Chart("myChart", {
+        const verticalLinePlugin = {
+            getLinePosition: function (chart, pointIndex) {
+                const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
+                const data = meta.data;
+                return data[pointIndex]._model.x;
+            },
+            renderVerticalLine: function (chartInstance, pointIndex) {
+                const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
+                const scale = chartInstance.scales['y-axis-0'];
+                const context = chartInstance.chart.ctx;
+
+                // render vertical line
+                context.beginPath();
+                context.strokeStyle = '#ff0000';
+                context.moveTo(lineLeftOffset, scale.top);
+                context.lineTo(lineLeftOffset, scale.bottom);
+                context.stroke();
+
+                // write label
+                context.fillStyle = "#ff0000";
+                context.textAlign = 'center';
+            },
+
+            afterDatasetsDraw: function (chart, easing) {
+                if (chart.config.lineAtIndex) {
+                    chart.config.lineAtIndex.forEach(pointIndex => this.renderVerticalLine(chart, pointIndex));
+                }
+            }
+        };
+
+        Chart.plugins.register(verticalLinePlugin);
+
+        let chart = new Chart("myChart", {
             type: "line",
             data: {
-                labels: xValues,
+                labels: xDates,
                 datasets: [{
                     fill: false,
                     lineTension: 0,
@@ -26,9 +57,10 @@
             options: {
                 legend: {display: false},
                 scales: {
-                    yAxes: [{ticks: {min: 0, max:3000}}],
+                    yAxes: [{ticks: {min: 0, max:1000}}],
                 }
-            }
+            },
+            lineAtIndex: anomalyIndexes,
         });
     </script>
 @endsection
