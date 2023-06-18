@@ -2,53 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\DbModels\Article;
 use App\DbModels\StatisticViews;
-use App\Models\ArticleStatisticModel;
+use App\Http\Response;
 use App\Services\AnomalyDetector;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class AnomaliesController
+class StatisticsController
 {
     public function __construct(
         private readonly AnomalyDetector $anomalyDetector,
-    ) {
+    )
+    {
     }
 
-    public function index(int $articleId)
+    public function getMonthlyStats(Request $request): JsonResponse
     {
-        $stats = $this->getStats($articleId);
+        $stats = $this->getStats(
+            (int)$request->input('articleId'),
+            Carbon::parse($request->input('start')),
+            Carbon::parse($request->input('end')),
+        );
 
-        $anomalies = $this->anomalyDetector->detect($stats);
+//        $anomalies = $this->anomalyDetector->detect($stats);
 
-        $article = Article::query()->firstWhere('id', $articleId);
-
-        $model = new ArticleStatisticModel();
-        $model->articleId = $article->id;
-        $model->title = $article->title;
-        $model->datesStr = base64_encode(implode(', ', $stats
-            ->pluck('period_date')
-            ->map(fn (Carbon $period) => $period->format('Y-m-d'))
-            ->all()
-        ));
-        $model->valuesStr = base64_encode(implode(', ', $stats
-            ->pluck('value')
-            ->all()
-        ));
-        $model->anomalyIndexes = base64_encode(implode(', ', $anomalies));
-
-        return view('anomalies.welcome', ['model' => $model]);
+        return Response::success($stats);
     }
 
     public function download(int $articleId)
     {
         $headers = [
-            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
-            'Content-type'        => 'text/csv',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Content-type' => 'text/csv',
             'Content-Disposition' => 'attachment',
-            'Expires'             => '0',
-            'Pragma'              => 'public',
+            'Expires' => '0',
+            'Pragma' => 'public',
         ];
 
         $stats = $this->getStats($articleId)
@@ -62,8 +52,7 @@ class AnomaliesController
 
         array_unshift($stats, array_keys($stats[0]));
 
-        $callback = function() use ($stats)
-        {
+        $callback = function () use ($stats) {
             $FH = fopen('php://output', 'w');
             foreach ($stats as $row) {
                 fputcsv($FH, $row);
@@ -76,11 +65,16 @@ class AnomaliesController
         return response()->streamDownload($callback, $name, $headers);
     }
 
-    private function getStats(int $articleId): Collection
-    {
+    private function getStats(
+        int    $articleId,
+        Carbon $start,
+        Carbon $end,
+    ): Collection {
         return StatisticViews::query()
             ->where('entity_id', $articleId)
             ->where('period', 'month')
+            ->where('period_date', '>=', $start)
+            ->where('period_date', '<=', $end)
             ->orderBy('period_date')
             ->select([
                 'period_date',

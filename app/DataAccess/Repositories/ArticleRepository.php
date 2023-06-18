@@ -49,7 +49,6 @@ class ArticleRepository extends BaseRepository
     public function getAll(): Collection
     {
         return Article::query()
-            ->with('tags')
             ->select([
                 'id',
                 'title',
@@ -72,7 +71,6 @@ class ArticleRepository extends BaseRepository
             Carbon::make($rawArticle->published_at),
             $rawArticle->content,
             $rawArticle->views_count,
-            $rawArticle->tags,
             $rawArticle->rating === null ? null : (float)$rawArticle->rating,
         );
     }

@@ -4,10 +4,8 @@ namespace Database\Seeders;
 
 use App\DbModels\Article;
 use App\DbModels\StatisticViews;
-use App\DbModels\Tag;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class DatabaseSeeder extends Seeder

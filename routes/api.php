@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/articles', [ArticleController::class, 'create']);
-Route::delete('/articles', [ArticleController::class, 'delete']);
-Route::put('/articles', [ArticleController::class, 'edit']);
+Route::post('stats', [StatisticsController::class, 'getMonthlyStats']);
+Route::get('articles/all', [ArticleController::class, 'getAll']);

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Response;
 use App\Services\ArticleService;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class ArticleController
 {
@@ -12,54 +13,10 @@ class ArticleController
     ) {
     }
 
-    public function viewWelcome()
+    public function getAll(): JsonResponse
     {
-        $articles = $this->articleService->getAllClientModels();
+        $articles = $this->articleService->getAll();
 
-        return view('welcome', [
-            'articles' => $articles,
-        ]);
-    }
-
-    public function viewCreate()
-    {
-        return view('articles.create-article');
-    }
-
-    public function viewEdit(int $id)
-    {
-        $article = $this->articleService->getById($id);
-
-        return view('articles.edit-article', ['article' => $article]);
-    }
-
-    public function create(Request $request)
-    {
-        $this->articleService->create(
-            $request->get('title'),
-            $request->get('content')
-        );
-
-        return redirect('/');
-    }
-
-    public function delete(Request $request)
-    {
-        $this->articleService->delete(
-            (int)$request->get('id'),
-        );
-
-        return redirect('/');
-    }
-
-    public function edit(Request $request)
-    {
-        $this->articleService->edit(
-            (int)$request->get('id'),
-            $request->get('title'),
-            $request->get('content'),
-        );
-
-        return redirect('/');
+        return Response::success($articles);
     }
 }

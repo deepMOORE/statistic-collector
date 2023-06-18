@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AnomaliesController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ArticleController::class, 'viewWelcome']);
-Route::get('articles/create', [ArticleController::class, 'viewCreate']);
-Route::get('articles/edit/{id}', [ArticleController::class, 'viewEdit']);
-
-Route::get('anomalies/{id}', [AnomaliesController::class, 'index']);
-Route::get('anomalies/download/{id}', [AnomaliesController::class, 'download']);
+//Route::get('/', [ArticleController::class, 'viewWelcome']);
+//Route::get('articles/create', [ArticleController::class, 'viewCreate']);
+//Route::get('articles/edit/{id}', [ArticleController::class, 'viewEdit']);
+//
+//Route::get('anomalies/{id}', [StatisticsController::class, 'getStatsByPeriod']);
+//Route::get('anomalies/download/{id}', [StatisticsController::class, 'download']);
