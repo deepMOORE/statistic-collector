@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('stats', [StatisticsController::class, 'getMonthlyStats']);
 Route::get('articles/all', [ArticleController::class, 'getAll']);
+Route::post('login', [LoginController::class, 'login']);
