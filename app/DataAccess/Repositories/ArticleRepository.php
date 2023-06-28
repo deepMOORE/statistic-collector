@@ -7,45 +7,8 @@ use App\Models\ArticleModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
-class ArticleRepository extends BaseRepository
+class ArticleRepository
 {
-    public function create(string $title, string $content): int
-    {
-        return $this->query()
-            ->insertGetId([
-                'title' => $title,
-                'published_at' => Carbon::now(),
-                'content' => $content,
-            ]);
-    }
-
-    public function getById(int $id): ArticleModel
-    {
-        $article = $this->query()
-            ->where('id', $id)
-            ->first() ?? throw new \Error();
-
-        return $this->map($article);
-    }
-
-    public function delete(int $id): int
-    {
-        return $this->query()
-            ->where('id', $id)
-            ->delete();
-    }
-
-    public function update(int $id, string $title, string $content): void
-    {
-        $this->query()
-            ->where('id', $id)
-            ->update([
-                'title' => $title,
-                'content' => $content,
-                'published_at' => Carbon::now(),
-            ]);
-    }
-
     public function getAll(): Collection
     {
         return Article::query()
@@ -73,10 +36,5 @@ class ArticleRepository extends BaseRepository
             $rawArticle->views_count,
             $rawArticle->rating === null ? null : (float)$rawArticle->rating,
         );
-    }
-
-    protected function getTable(): string
-    {
-        return 'articles';
     }
 }
