@@ -6,7 +6,7 @@ use App\Http\Response;
 use App\Services\ArticleService;
 use Illuminate\Http\JsonResponse;
 
-class ArticleController
+class ArticleController extends AuthenticatedUserController
 {
     public function __construct(
         private readonly ArticleService $articleService,
@@ -15,7 +15,9 @@ class ArticleController
 
     public function getAll(): JsonResponse
     {
-        $articles = $this->articleService->getAll();
+        $userId = $this->getCurrentUserId();
+
+        $articles = $this->articleService->getByUser($userId);
 
         return Response::success($articles);
     }

@@ -14,10 +14,11 @@ class ArticleService
     }
 
     /**
+     * @param int $userId
      * @return Collection<ArticleModel>
      */
-    public function getAll(): Collection
+    public function getByUser(int $userId): Collection
     {
-        return $this->articleRepository->getAll();
+        return $this->articleRepository->getByUser($userId);
     }
 }

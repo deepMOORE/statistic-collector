@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class StatisticsController
+class StatisticsController extends AuthenticatedUserController
 {
     public function __construct(
         private readonly AnomalyDetector $anomalyDetector,
@@ -20,7 +20,10 @@ class StatisticsController
 
     public function getMonthlyStats(Request $request): JsonResponse
     {
+        $userId = $this->getCurrentUserId();
+
         $stats = $this->getStats(
+            $userId,
             (int)$request->input('articleId'),
             Carbon::parse($request->input('start')),
             Carbon::parse($request->input('end')),
@@ -66,11 +69,13 @@ class StatisticsController
     }
 
     private function getStats(
+        int $userId,
         int    $articleId,
         Carbon $start,
         Carbon $end,
     ): Collection {
         return StatisticViews::query()
+            ->where('user_id', $userId)
             ->where('entity_id', $articleId)
             ->where('period', 'month')
             ->where('period_date', '>=', $start)

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->unsignedBigInteger('user_id');
             $table->decimal('rating')->nullable()->default(null);
             $table->dateTime('published_at');
             $table->bigInteger('views_count');

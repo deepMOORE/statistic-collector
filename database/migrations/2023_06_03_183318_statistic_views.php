@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('statistics_views', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedDecimal('value');
             $table->dateTime('period_date');
             $table->enum('period', ['whole', 'month', 'week']);

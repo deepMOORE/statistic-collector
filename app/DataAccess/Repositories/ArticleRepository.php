@@ -9,9 +9,10 @@ use Illuminate\Support\Collection;
 
 class ArticleRepository
 {
-    public function getAll(): Collection
+    public function getByUser(int $userId): Collection
     {
         return Article::query()
+            ->where('user_id', $userId)
             ->select([
                 'id',
                 'title',
